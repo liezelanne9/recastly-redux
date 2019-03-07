@@ -10,13 +10,16 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import store from '../store/store.js';
 import Search from './Search.js'
 
+import searchYouTube from '../lib/searchYouTube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      videos: [],
-      currentVideo: videos[0] // maybe fix me? should be first vid in list
+      videos: exampleVideoData,
+      currentVideo: exampleVideoData[0] // maybe fix me? should be first vid in list
     };
   }
 
@@ -30,12 +33,7 @@ export default class App extends React.Component {
   }
 
   getYouTubeVideos(query) {
-    var options = {
-      key: this.props.API_KEY,
-      query: query
-    };
-
-    this.props.searchYouTube(options, (videos) =>
+    searchYouTube({key: YOUTUBE_API_KEY, query: query}, (videos) =>
       this.setState({
         videos: videos,
         currentVideo: videos[0]
