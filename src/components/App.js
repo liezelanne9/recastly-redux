@@ -16,11 +16,12 @@ export default class App extends React.Component {
 
     this.state = {
       videos: [],
-      currentVideo: null // maybe fix me? should be first vid in list
+      currentVideo: videos[0] // maybe fix me? should be first vid in list
     };
   }
 
   componentDidMount() {
+    console.log('it mounted')
     this.getYouTubeVideos('react tutorials');
   }
 
@@ -49,7 +50,7 @@ export default class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 col-md-offset-3">
-            <Search handleSearchInputChange={this.handleSearchInputChange}/>
+            <Search handleSearchInputChange={this.getYouTubeVideos}/>
           </div>
         </nav>
         <div className="row">
