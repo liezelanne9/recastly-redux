@@ -4,8 +4,9 @@ import VideoPlayerContainer from '../containers/VideoPlayerContainer.js';
 import SearchContainer from '../containers/SearchContainer.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
-import changeVideo from '../actions/currentVideo.js';
-import changeVideoList from '../actions/videoList.js';
+
+import handleSearchChange from '../actions/search.js'
+
 import exampleVideoData from '../data/exampleVideoData.js';
 import store from '../store/store.js';
 import Search from './Search.js'
@@ -21,11 +22,12 @@ export default class App extends React.Component {
       videos: exampleVideoData,
       currentVideo: exampleVideoData[0] // maybe fix me? should be first vid in list
     };
+    this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {
+    store.dispatch(handleSearchChange('Hack Reactor'));
     console.log('it mounted')
-    this.getYouTubeVideos('react tutorials');
   }
 
   handleVideoListEntryTitleClick(video) {
@@ -33,11 +35,14 @@ export default class App extends React.Component {
   }
 
   getYouTubeVideos(query) {
-    searchYouTube({key: YOUTUBE_API_KEY, query: query}, (videos) =>
+    var storage;
+    searchYouTube({key: YOUTUBE_API_KEY, query: query}, (items) => {
+      storage = (items)
       this.setState({
-        videos: videos,
-        currentVideo: videos[0]
-      })
+          videos: storage,
+          currentVideo: storage[0]})
+      console.log('done');
+    }
     );
   }
 
@@ -53,7 +58,7 @@ export default class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.currentVideo}/>
+            <VideoPlayerContainer />
           </div>
           <div className="col-md-5">
             <VideoList

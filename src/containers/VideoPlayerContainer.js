@@ -8,16 +8,15 @@ var mapStateToProps = state => {
     }
 }
 
-var mapDispatchToProps = dispatch => {
-    return {
+// var mapDispatchToProps = dispatch => {
+//     return {
         
-    }
-}
+//     }
+// }
 
 
 var VideoPlayerContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(VideoPlayer)
 
 //TODO: define a VideoPlayerContainer component which will hook up your action
