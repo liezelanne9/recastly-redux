@@ -1,5 +1,3 @@
-
-
 function changeVideo(video){
   //TODO:  Return some action object to change the currently playing video.
 
@@ -10,4 +8,4 @@ function changeVideo(video){
 
 };
 
-export default changeVideo;
+export default changeVideo
