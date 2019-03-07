@@ -2,14 +2,15 @@ import { connect } from 'react-redux';
 import VideoPlayer from '../components/VideoPlayer.js';
 
 var mapStateToProps = state => {
+    console.log(state)
     return {
-        video: video
+        video: state.currentVideo
     }
 }
 
 var mapDispatchToProps = dispatch => {
     return {
-        handleVideoListEntryTitleClick
+        
     }
 }
 
