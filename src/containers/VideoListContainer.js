@@ -12,9 +12,6 @@ var mapStateToProps = state => {
     }
 }
 
-//  handleVideoListEntryTitleClick(video) {
-//     this.setState({currentVideo: video});
-//   }
 
 var mapDispatchToProps = dispatch => {
     return {
@@ -29,5 +26,7 @@ var VideoListContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(VideoList);
+
+
 
 export default VideoListContainer;

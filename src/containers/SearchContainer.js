@@ -2,6 +2,7 @@ import React from 'react';
 import Search from './../components/Search.js';
 import { connect } from 'react-redux';
 import handleSearchChange from '../actions/search.js';
+import changeValue from '../actions/submitQuery.js';
 
 var mapStateToProps = state => {
     console.log(state)
@@ -14,6 +15,9 @@ var mapDispatchToProps = dispatch => {
     return {
         handleSearchInputChange: q => {
             dispatch(handleSearchChange(q))
+        },
+        handleCurrentValue: value => {
+            dispatch(changeValue(value))
         }
     }
 }

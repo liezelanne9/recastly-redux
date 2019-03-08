@@ -16,36 +16,36 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      videos: [],
-      currentVideo: {}
-    };
+    // this.state = {
+    //   videos: [],
+    //   currentVideo: {}
+    // };
   }
 
   componentDidMount() {
     // console.log(store)
     // this.handleSearchInputChange('react tutorials');
-    store.dispatch(handleSearchChange('hello'));
+    store.dispatch(handleSearchChange('throwing vans'));
   }
 
-  handleVideoListEntryTitleClick(video) {
-    this.setState({currentVideo: video});
-  }
+  // handleVideoListEntryTitleClick(video) {
+  //   this.setState({currentVideo: video});
+  // }
 
-  handleSearchInputChange(query) {
-    var key = this.props.YOUTUBE_API_KEY;
-    var options = {
-      key: key,
-      query: query
-    };
+  // handleSearchInputChange(query) {
+  //   var key = this.props.YOUTUBE_API_KEY;
+  //   var options = {
+  //     key: key,
+  //     query: query
+  //   };
 
-    this.props.searchYouTube(options, (videos) =>
-      this.setState({
-        videos: videos,
-        currentVideo: videos[0]
-      })
-    );
-  }
+  //   this.props.searchYouTube(options, (videos) =>
+  //     this.setState({
+  //       videos: videos,
+  //       currentVideo: videos[0]
+  //     })
+  //   );
+  // }
 
   //TODO: swap out the React components below for the container components
   //  you wrote in the 'containers' directory.
@@ -54,7 +54,8 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 col-md-offset-3">
-            <Search handleSearchInputChange={this.handleSearchInputChange.bind(this)}/>
+            {/*<Search handleSearchInputChange={this.handleSearchInputChange.bind(this)}/>*/}
+            <SearchContainer />
           </div>
         </nav>
         <div className="row">
@@ -62,10 +63,11 @@ class App extends React.Component {
             <VideoPlayerContainer />
           </div>
           <div className="col-md-5">
-            <VideoList
+            {/*<VideoList
               handleVideoListEntryTitleClick={this.handleVideoListEntryTitleClick.bind(this)}
               videos={this.state.videos}
-            />
+            />*/}
+            <VideoListContainer />
           </div>
         </div>
       </div>
