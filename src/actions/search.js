@@ -10,7 +10,7 @@ function handleSearchChange(q) {
   //TODO:  Write an asynchronous action to handle a video search!
     return (dispatch) => {
       var storage;
-        searchYouTube({YOUTUBE_API_KEY, q}, (items) => {
+        searchYouTube({key: YOUTUBE_API_KEY, query: q, max: 5}, (items) => {
         
           storage = (items)
           dispatch(changeVideo(storage[0]));

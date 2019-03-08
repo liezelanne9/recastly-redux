@@ -6,6 +6,7 @@ import SearchContainer from '../containers/SearchContainer.js';
 import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
+import handleSearchChange from '../actions/search.js'
 import changeVideo from '../actions/currentVideo.js';
 import changeVideoList from '../actions/videoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
@@ -17,13 +18,14 @@ class App extends React.Component {
 
     this.state = {
       videos: [],
-      currentVideo: null
+      currentVideo: {}
     };
   }
 
   componentDidMount() {
-    this.handleSearchInputChange('react tutorials');
-    console.log(this.props)
+    // console.log(store)
+    // this.handleSearchInputChange('react tutorials');
+    store.dispatch(handleSearchChange('hello'));
   }
 
   handleVideoListEntryTitleClick(video) {
@@ -52,12 +54,12 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 col-md-offset-3">
-            <Search handleSearchInputChange={this.handleSearchInputChange}/>
+            <Search handleSearchInputChange={this.handleSearchInputChange.bind(this)}/>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.currentVideo}/>
+            <VideoPlayerContainer />
           </div>
           <div className="col-md-5">
             <VideoList
