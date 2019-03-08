@@ -2,47 +2,46 @@ import React from 'react';
 import VideoListContainer from '../containers/VideoListContainer.js';
 import VideoPlayerContainer from '../containers/VideoPlayerContainer.js';
 import SearchContainer from '../containers/SearchContainer.js';
+
+import Search from './Search.js';
 import VideoPlayer from './VideoPlayer.js';
 import VideoList from './VideoList.js';
-
-import handleSearchChange from '../actions/search.js'
-
+import changeVideo from '../actions/currentVideo.js';
+import changeVideoList from '../actions/videoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import store from '../store/store.js';
-import Search from './Search.js'
 
-import searchYouTube from '../lib/searchYouTube.js';
-import YOUTUBE_API_KEY from '../config/youtube.js';
-
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      videos: exampleVideoData,
-      currentVideo: exampleVideoData[0] // maybe fix me? should be first vid in list
+      videos: [],
+      currentVideo: null
     };
-    this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {
-    store.dispatch(handleSearchChange('Hack Reactor'));
-    console.log('it mounted')
+    this.handleSearchInputChange('react tutorials');
+    console.log(this.props)
   }
 
   handleVideoListEntryTitleClick(video) {
     this.setState({currentVideo: video});
   }
 
-  getYouTubeVideos(query) {
-    var storage;
-    searchYouTube({key: YOUTUBE_API_KEY, query: query}, (items) => {
-      storage = (items)
+  handleSearchInputChange(query) {
+    var key = this.props.YOUTUBE_API_KEY;
+    var options = {
+      key: key,
+      query: query
+    };
+
+    this.props.searchYouTube(options, (videos) =>
       this.setState({
-          videos: storage,
-          currentVideo: storage[0]})
-      console.log('done');
-    }
+        videos: videos,
+        currentVideo: videos[0]
+      })
     );
   }
 
@@ -53,12 +52,12 @@ export default class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 col-md-offset-3">
-            <Search handleSearchInputChange={this.getYouTubeVideos}/>
+            <Search handleSearchInputChange={this.handleSearchInputChange}/>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayerContainer />
+            <VideoPlayer video={this.state.currentVideo}/>
           </div>
           <div className="col-md-5">
             <VideoList
@@ -71,3 +70,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default App;
